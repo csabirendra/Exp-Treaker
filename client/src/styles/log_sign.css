@@ -1,0 +1,7 @@
+/* styles.css */
+.bg-pattern {
+  background-image: url("../assets/img/log_sign_bg.jpg"); /* replace with your image path */
+  background-repeat: no-repeat;
+  background-size: fill; /* or 'contain' depending on effect */
+  background-position: center;
+}
