@@ -1,0 +1,17 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+server/.env
+client/.env
+
+# Build folders
+dist/
+build/
+
+# Misc
+.vscode/
+.DS_Store
+npm-debug.log*
+yarn-error.log*
