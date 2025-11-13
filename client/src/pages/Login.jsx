@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import expenseAnimation from "../assets/animations/expense.json";
-import logo from "../assets/logo1.png";
+import logo from "../assets/Logo1.png";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
