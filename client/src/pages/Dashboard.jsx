@@ -3,7 +3,7 @@ import { LogOut } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 // LOGO
-import logo from "../assets/logo1.png";
+import logo from "../assets/Logo1.png";
 import FloatingButton from "../components/DashboardComp/FloatingButton.jsx";
 
 // ✅ Pages

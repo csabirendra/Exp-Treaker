@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
-import logo from "../assets/logo1.png";
+import logo from "../assets/Logo1.png";
 import "../styles/navbar.css";
 import { FiLogIn, FiUserPlus } from "react-icons/fi";
 
