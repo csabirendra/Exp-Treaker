@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import expenseAnimation from "../assets/animations/expense.json";
 import logo from "../assets/Logo1.png";
+import API_BASE_URL from "../config/api.js";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -14,46 +15,43 @@ export default function Login() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    const resp = await fetch("http://localhost:5002/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const resp = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    const data = await resp.json();
+      const data = await resp.json();
 
-    setTimeout(() => {
-      if (data.success) {
-        // ✅ Save token and USERID in correct keys
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("USERID", data.user.USERID);   // 👈 only USERID store karna
+      setTimeout(() => {
+        if (data.success) {
+          // ✅ Save token and USERID in correct keys
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("USERID", data.user.USERID); // 👈 only USERID store karna
 
-        // (Optional) agar full user details chahiye ho to
-        localStorage.setItem("user", JSON.stringify(data.user));
+          // (Optional) agar full user details chahiye ho to
+          localStorage.setItem("user", JSON.stringify(data.user));
 
-        // Redirect to dashboard
-        navigate("/dashboard");
-      } else {
-        alert(data.message || "Login failed ❌");
-      }
+          // Redirect to dashboard
+          navigate("/dashboard");
+        } else {
+          alert(data.message || "Login failed ❌");
+        }
+        setLoading(false);
+      }, 500);
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Server error, please try again!");
       setLoading(false);
-    }, 500);
-
-  } catch (err) {
-    console.error("Login error:", err);
-    alert("Server error, please try again!");
-    setLoading(false);
-  }
-};
-
+    }
+  };
 
   return (
     <div className=" w-100 flex flex-col md:flex-row min-h-screen">
-
       {/* Left Section - Branding + Animation */}
       <div className="hidden md:flex w-3/7 bg-slate-700 text-white flex-col items-center justify-start">
         <div className="w-full h-25 flex items-center justify-center gap-1">
