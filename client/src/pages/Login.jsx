@@ -3,7 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import Lottie from "lottie-react";
 import expenseAnimation from "../assets/animations/expense.json";
 import logo from "../assets/Logo1.png";
-import API_BASE_URL from "../config/api.js";
+import axiosInstance from "../config/api.js";
+// import axiosInstance, { API_BASE_URL } from "../config/api.js";
+
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -19,37 +21,25 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const resp = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await axiosInstance.post("/api/auth/login", form);
+      const data = res.data;
 
-      const data = await resp.json();
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("USERID", data.user.USERID);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
-      setTimeout(() => {
-        if (data.success) {
-          // ✅ Save token and USERID in correct keys
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("USERID", data.user.USERID); // 👈 only USERID store karna
-
-          // (Optional) agar full user details chahiye ho to
-          localStorage.setItem("user", JSON.stringify(data.user));
-
-          // Redirect to dashboard
-          navigate("/dashboard");
-        } else {
-          alert(data.message || "Login failed ❌");
-        }
-        setLoading(false);
-      }, 500);
+        navigate("/dashboard");
+      } else {
+        alert(data.message || "Login failed ❌");
+      }
     } catch (err) {
       console.error("Login error:", err);
       alert("Server error, please try again!");
+    } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className=" w-100 flex flex-col md:flex-row min-h-screen">
       {/* Left Section - Branding + Animation */}

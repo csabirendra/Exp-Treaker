@@ -7,6 +7,8 @@ import axios from "axios";
 import { subcategoryIcons } from "../../config/subcategoryIcons";
 import transactionIcon from "../../assets/animations/transaction.json";
 import TransactionModal from "../TransactionComp/TransactionModal"; // 🔹 imported your modal
+import API_BASE_URL from "../../config/api";
+
 
 const RecentTransactions = ({ transactions: parentTxns = [], setActiveTab }) => {
   const [useDummy, setUseDummy] = useState(false);
